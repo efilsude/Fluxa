@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Fluxa - Pres Makinesi A1 Detay</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#dfe3e7",
+                        "on-primary-fixed": "#001f29",
+                        "inverse-on-surface": "#edf1f5",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#6bff8f",
+                        "surface-container": "#eaeef2",
+                        "outline-variant": "#bec8cd",
+                        "on-secondary-fixed-variant": "#38485d",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "inverse-surface": "#2c3134",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#006781",
+                        "on-primary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#d3e4fe",
+                        "primary-fixed-dim": "#81d1f0",
+                        "on-tertiary-fixed": "#002109",
+                        "primary-fixed": "#b9eaff",
+                        "tertiary": "#006028",
+                        "tertiary-fixed-dim": "#4ae176",
+                        "primary": "#005a71",
+                        "surface-container-high": "#e4e9ed",
+                        "on-tertiary-fixed-variant": "#005321",
+                        "primary-container": "#0e7490",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#f6fafe",
+                        "secondary-fixed-dim": "#b7c8e1",
+                        "on-primary-container": "#d3f1ff",
+                        "on-surface": "#171c1f",
+                        "background": "#f6fafe",
+                        "on-background": "#171c1f",
+                        "inverse-primary": "#81d1f0",
+                        "surface-dim": "#d6dade",
+                        "outline": "#6f787d",
+                        "surface-container-low": "#f0f4f8",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed-variant": "#004d62",
+                        "on-secondary-container": "#54647a",
+                        "secondary": "#505f76",
+                        "tertiary-container": "#007c36",
+                        "on-surface-variant": "#3f484c",
+                        "secondary-container": "#d0e1fb",
+                        "surface": "#f6fafe",
+                        "on-tertiary-container": "#b2ffba",
+                        "on-secondary-fixed": "#0b1c30",
+                        "surface-variant": "#dfe3e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Inter"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Yeni Toggle Buton Stilleri */
+        .btn-filter {
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            filter: grayscale(80%);
+            cursor: pointer;
+        }
+        .btn-filter.active {
+            opacity: 1;
+            filter: grayscale(0%);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            border-color: #cbd5e1;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen">
+
+    <nav class="flex justify-between items-center w-full px-8 h-16 fixed top-0 z-50 bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-xl">
+        <div class="flex items-center gap-8">
+            <span class="text-2xl font-bold tracking-tighter text-cyan-900 dark:text-cyan-50 font-inter tracking-tight">Fluxa</span>
+            <div class="hidden md:flex gap-6">
+                <a class="text-slate-500 dark:text-slate-400 font-medium hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors" href="#">Anasayfa</a>
+                <a class="text-cyan-700 dark:text-cyan-400 font-semibold border-b-2 border-cyan-700 dark:border-cyan-400" href="#">Assets</a>
+                <a class="text-slate-500 dark:text-slate-400 font-medium hover:text-cyan-600 dark:hover:text-cyan-300 transition-colors" href="#">Alerts</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="material-symbols-outlined text-slate-500">search</button>
+            <div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container text-xs font-bold">EY</div>
+        </div>
+    </nav>
+
+    <aside class="hidden lg:flex fixed left-0 top-16 h-[calc(100vh-64px)] w-64 border-r border-slate-200/50 dark:border-slate-800/50 flex-col p-4 z-40 bg-slate-100 dark:bg-slate-950">
+        <div class="mb-8 p-2">
+            <h2 class="text-xl font-black text-slate-900 dark:text-white">Fluxa Terminal</h2>
+            <p class="text-[10px] uppercase tracking-widest text-slate-500 font-bold mt-1">Operator ID: 8821</p>
+        </div>
+        <div class="space-y-2 flex-grow">
+            <div class="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all group cursor-pointer">
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">home</span>
+                <span class="text-sm uppercase tracking-wider">Anasayfa</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 bg-white dark:bg-slate-900 text-cyan-700 dark:text-cyan-400 rounded-lg shadow-sm group cursor-pointer">
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">precision_manufacturing</span>
+                <span class="text-sm uppercase tracking-wider font-semibold">Assets</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all group cursor-pointer">
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">notifications_active</span>
+                <span class="text-sm uppercase tracking-wider">Alerts</span>
+            </div>
+            <div class="flex items-center gap-3 p-3 text-slate-500 dark:text-slate-400 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50 rounded-lg transition-all group cursor-pointer">
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">leaderboard</span>
+                <span class="text-sm uppercase tracking-wider">Analytics</span>
+            </div>
+        </div>
+        <div class="mt-auto pt-4 border-t border-slate-200/50">
+            <div class="flex items-center gap-3 p-3 text-slate-500 font-medium hover:bg-slate-200/50 rounded-lg cursor-pointer">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="text-xs uppercase tracking-wider">Settings</span>
+            </div>
+        </div>
+    </aside>
+
+    <main class="lg:ml-64 pt-24 pb-12 px-6 lg:px-12 max-w-[1600px] mx-auto">
+        
+        <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div class="space-y-4">
+                <button onclick="window.location.href='dashboard.html'" class="flex items-center gap-2 text-primary font-semibold hover:opacity-80 transition-opacity">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                    <span class="text-sm uppercase tracking-wide">Geri Dön</span>
+                </button>
+                <div class="space-y-1">
+                    <h1 class="text-5xl font-extrabold tracking-tighter text-on-surface">Pres Makinesi A1</h1>
+                    <p class="text-lg text-on-surface-variant font-medium">Kodu: <span class="text-primary">PR-A101</span></p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 bg-error-container p-6 rounded-xl border-l-8 border-error shadow-sm">
+                <div class="w-12 h-12 rounded-full bg-error flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">error</span>
+                </div>
+                <div>
+                    <p class="text-[10px] uppercase font-black text-on-error-container tracking-widest">Sistem Durumu</p>
+                    <p class="text-2xl font-bold text-error">Kritik Risk</p>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+            
+            <div class="xl:col-span-8 space-y-8">
+                <section class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm relative">
+                    <div class="p-8 border-b border-surface-container-high flex flex-wrap items-center justify-between gap-4">
+                        <div class="space-y-1">
+                            <h3 class="text-xl font-bold text-on-surface">Canlı Telemetri</h3>
+                            <p class="text-sm text-on-surface-variant">Son 24 saatlik operasyonel veriler</p>
+                        </div>
+                        
+                        <div class="flex flex-wrap gap-3 mb-8">
+    <button id="btn-0" onclick="toggleDataset(0)" class="px-4 py-2 rounded-lg border border-outline-variant text-xs font-bold uppercase tracking-wider hover:bg-surface-container-high transition-all active">
+        Performans
+    </button>
+    <button id="btn-1" onclick="toggleDataset(1)" class="px-4 py-2 rounded-lg border border-outline-variant text-xs font-bold uppercase tracking-wider hover:bg-surface-container-high transition-all">
+        Sıcaklık
+    </button>
+    <button id="btn-2" onclick="toggleDataset(2)" class="px-4 py-2 rounded-lg border border-outline-variant text-xs font-bold uppercase tracking-wider hover:bg-surface-container-high transition-all">
+        Titreşim
+    </button>
+    <button id="btn-3" onclick="toggleDataset(3)" class="px-4 py-2 rounded-lg border border-outline-variant text-xs font-bold uppercase tracking-wider hover:bg-surface-container-high transition-all">
+        Ses (dB)
+    </button>
+    <button id="btn-4" onclick="toggleDataset(4)" class="px-4 py-2 rounded-lg border border-outline-variant text-xs font-bold uppercase tracking-wider hover:bg-surface-container-high transition-all">
+        Nem
+    </button>
+</div>
+                    </div>
+                    
+                    <div class="h-[400px] w-full p-6 relative bg-white">
+                        <canvas id="telemetryChart"></canvas>
+                    </div>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Çalışma Süresi</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-4xl font-extrabold tracking-tighter">18.4</span>
+                            <span class="text-sm font-bold text-on-surface-variant">SAAT</span>
+                        </div>
+                        <div class="h-1 w-full bg-slate-200 rounded-full overflow-hidden">
+                            <div class="h-full bg-tertiary w-3/4"></div>
+                        </div>
+                    </div>
+                    <div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Enerji Tüketimi</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-4xl font-extrabold tracking-tighter">420</span>
+                            <span class="text-sm font-bold text-on-surface-variant">kWh</span>
+                        </div>
+                        <p class="text-xs text-on-surface-variant">+12% vs. dün</p>
+                    </div>
+                    <div class="bg-surface-container-low p-6 rounded-xl space-y-4">
+                        <p class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Parça Üretimi</p>
+                        <div class="flex items-baseline gap-2">
+                            <span class="text-4xl font-extrabold tracking-tighter">1,204</span>
+                            <span class="text-sm font-bold text-on-surface-variant">ADET</span>
+                        </div>
+                        <div class="flex items-center text-tertiary gap-1">
+                            <span class="material-symbols-outlined text-sm">trending_up</span>
+                            <span class="text-xs font-bold">OPTIMAL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xl:col-span-4 space-y-8">
+                
+                <section class="bg-on-surface text-surface p-8 rounded-xl shadow-2xl relative overflow-hidden group">
+                    <div class="absolute inset-0 opacity-20 pointer-events-none bg-gradient-to-br from-primary via-transparent to-error"></div>
+                    <div class="relative z-10 space-y-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-surface/10 backdrop-blur-md flex items-center justify-center">
+                                <span class="material-symbols-outlined text-primary-fixed-dim" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                            </div>
+                            <h2 class="text-xl font-bold tracking-tight">AI Tahmini</h2>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-surface-container-highest opacity-70">Bakım İhtimali</span>
+                                <span class="text-error font-black uppercase tracking-widest text-sm">Yüksek</span>
+                            </div>
+                            <div class="p-6 bg-surface/5 backdrop-blur-lg rounded-lg border border-white/10">
+                                <p class="text-lg leading-relaxed font-medium">Önümüzdeki bakım ihtimali: <span class="text-error font-bold">Yüksek</span>. 7 gün içinde kontrol önerilir.</p>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="flex-grow h-px bg-white/20"></div>
+                                <span class="text-[10px] uppercase font-bold text-surface/40">Analiz Tamamlandı</span>
+                                <div class="flex-grow h-px bg-white/20"></div>
+                            </div>
+                            <button id="service-btn" onclick="createServiceTicket()" class="w-full py-4 bg-primary text-white font-bold rounded-lg shadow-lg hover:translate-y-[-2px] transition-all duration-300 flex items-center justify-center gap-2">
+                                <span id="service-icon" class="material-symbols-outlined text-sm">event_repeat</span>
+                                <span id="service-text">Servis Kaydı Oluştur</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-surface-container-high/50 p-8 rounded-xl space-y-8">
+                    <div class="space-y-4">
+                        <h3 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Donanım Bilgileri</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+                                <span class="text-sm font-medium">Model</span>
+                                <span class="text-sm font-bold">Flux-Hydra P4</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+                                <span class="text-sm font-medium">Son Revizyon</span>
+                                <span class="text-sm font-bold">12.02.2024</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2 border-b border-outline-variant/20">
+                                <span class="text-sm font-medium">Yazılım</span>
+                                <span class="text-sm font-bold">v2.4.1</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <h3 class="text-[10px] font-black uppercase tracking-widest text-on-surface-variant">Operatör Kayıtları</h3>
+                        <div class="space-y-4">
+                            <div class="flex gap-4">
+                                <div class="w-10 h-10 rounded-full bg-surface-container flex-shrink-0 flex items-center justify-center font-bold text-xs">MA</div>
+                                <div class="space-y-1">
+                                    <p class="text-xs font-bold">Mehmet A. <span class="text-[10px] text-slate-400 font-normal ml-2">2s önce</span></p>
+                                    <p class="text-xs text-on-surface-variant">Hidrolik basınçta hafif dalgalanma gözlendi. Manuel kontrol yapıldı.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 opacity-60">
+                                <div class="w-10 h-10 rounded-full bg-surface-container flex-shrink-0 flex items-center justify-center font-bold text-xs">SK</div>
+                                <div class="space-y-1">
+                                    <p class="text-xs font-bold">Selin K. <span class="text-[10px] text-slate-400 font-normal ml-2">Dün</span></p>
+                                    <p class="text-xs text-on-surface-variant">Vardiya tesliminde tüm sistemler yeşil olarak raporlandı.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="w-full py-2 text-primary font-bold text-xs hover:bg-primary/5 transition-colors rounded-lg">Tüm Logları Görüntüle</button>
+                    </div>
+                </section>
+                
+            </div>
+        </div>
+    </main>
+
+    <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 flex justify-around p-4 z-50">
+    <button class="material-symbols-outlined text-primary">home</button>
+        <button class="material-symbols-outlined text-slate-400">precision_manufacturing</button>
+        <button class="material-symbols-outlined text-slate-400">notifications_active</button>
+        <button class="material-symbols-outlined text-slate-400">settings</button>
+    </div>
+
+    <div id="toast-success" class="fixed bottom-6 right-6 bg-emerald-500 text-white px-6 py-4 rounded-xl shadow-2xl transform transition-all duration-300 translate-y-20 opacity-0 flex items-center gap-3 z-[100]">
+        <span class="material-symbols-outlined">check_circle</span>
+        <div>
+            <p class="font-bold text-sm">Başarılı!</p>
+            <p class="text-xs opacity-90">Servis kaydı başarıyla oluşturuldu.</p>
+        </div>
+    </div>
+
+    <script>
+        // --- SERVİS KAYDI OLUŞTURMA İŞLEVİ ---
+        function createServiceTicket() {
+            const btn = document.getElementById('service-btn');
+            const icon = document.getElementById('service-icon');
+            const text = document.getElementById('service-text');
+            const toast = document.getElementById('toast-success');
+
+            // 1. Butonun Görünümünü Değiştir
+            btn.classList.remove('bg-primary', 'hover:translate-y-[-2px]');
+            btn.classList.add('bg-emerald-500', 'cursor-default');
+            icon.innerText = 'check_circle';
+            text.innerText = 'Kayıt Oluşturuldu';
+            
+            // 2. Butona tekrar tıklanmasını engelle
+            btn.onclick = null;
+
+            // 3. Pop-up (Toast) Bildirimini Göster
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            // 4. 3 Saniye sonra bildirimi gizle
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // --- GRAFİK MANTIĞI (Aynı Kaldı) ---
+        const timeLabels = ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '00:00', '02:00', '04:00', '06:00'];
+
+        const chartData = {
+            labels: timeLabels,
+            datasets: [
+                {
+                    label: 'Performans (%)',
+                    data: [85, 82, 90, 75, 60, 45, 80, 95, 65, 30, 20, 85],
+                    borderColor: '#005a71',
+                    backgroundColor: 'rgba(0, 90, 113, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true,
+                    hidden: true
+                },
+                {
+                    label: 'Sıcaklık (°C)',
+                    data: [50, 52, 55, 60, 65, 75, 82, 85, 80, 65, 55, 50],
+                    borderColor: '#f97316',
+                    backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    hidden: true
+                },
+                {
+                    label: 'Titreşim (mm/s)',
+                    data: [2, 2.5, 3, 3.5, 4, 8, 12, 10, 6, 3, 2, 2],
+                    borderColor: '#06b6d4',
+                    backgroundColor: 'rgba(6, 182, 212, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    hidden: true
+                },
+                {
+                    label: 'Ses (dB)',
+                    data: [65, 66, 68, 70, 75, 85, 92, 88, 75, 68, 65, 64],
+                    borderColor: '#a855f7',
+                    backgroundColor: 'rgba(168, 85, 247, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    hidden: true
+                },
+                {
+                    label: 'Nem (%)',
+                    data: [40, 42, 45, 45, 48, 50, 55, 60, 58, 50, 45, 42],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    hidden: true
+                }
+            ]
+        };
+
+        const config = {
+            type: 'line',
+            data: chartData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        titleColor: '#171c1f',
+                        bodyColor: '#3f484c',
+                        borderColor: '#e2e8f0',
+                        borderWidth: 1,
+                        padding: 12
+                    }
+                },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: '#e2e8f0',
+                            borderDash: [5, 5]
+                        }
+                    }
+                }
+            }
+        };
+
+        const ctx = document.getElementById('telemetryChart').getContext('2d');
+        const telemetryChart = new Chart(ctx, config);
+
+        // Toggle Fonksiyonu
+        function toggleDataset(datasetIndex) {
+            const isHidden = telemetryChart.data.datasets[datasetIndex].hidden;
+            telemetryChart.data.datasets[datasetIndex].hidden = !isHidden;
+            
+            const btn = document.getElementById(`btn-${datasetIndex}`);
+            if (isHidden) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+
+            telemetryChart.update();
+        }
+    // --- API BAĞLANTI KODU BURADAN BAŞLIYOR ---
+    const urlParams = new URLSearchParams(window.location.search);
+    const machineId = urlParams.get('id') || 'PR-A101'; // URL'de id yoksa varsayılan PR-A101
+    const API_BASE = "http://127.0.0.1:8000/api/machines/" + machineId;
+
+    async function loadDetailData() {
+        try {
+            // 1. Grafik Verilerini Çek
+            const telResponse = await fetch(API_BASE + "/telemetry");
+            const telData = await telResponse.json();
+
+            // Mevcut grafiğin (telemetryChart) verilerini güncelle
+            telemetryChart.data.labels = telData.labels;
+            telemetryChart.data.datasets[0].data = telData.performance;
+            telemetryChart.data.datasets[1].data = telData.temperature;
+            telemetryChart.data.datasets[2].data = telData.vibration;
+            telemetryChart.data.datasets[3].data = telData.sound_db;
+            telemetryChart.data.datasets[4].data = telData.humidity;
+            
+            // Performans grafiğini varsayılan olarak aç
+            toggleDataset(0); 
+
+            // 2. AI Tahmin Verilerini Çek ve Sağdaki Karta Yaz
+            const aiResponse = await fetch(API_BASE + "/ai-prediction");
+            const aiData = await aiResponse.json();
+
+            // Karttaki başlığı (Kritik/Normal) güncelle
+            document.querySelector('.xl\\:col-span-4 .text-error').innerText = aiData.probability;
+            // Karttaki açıklama metnini güncelle
+            document.querySelector('.xl\\:col-span-4 .text-lg').innerHTML = aiData.message;
+
+        } catch (error) {
+            console.error("Detay sayfası yüklenirken hata:", error);
+        }
+    }
+
+    // Sayfa hazır olduğunda verileri yükle
+    document.addEventListener("DOMContentLoaded", loadDetailData);
+    // --- API BAĞLANTI KODU BURADA BİTİYOR ---
+    </script>
+</body>
+</html>
