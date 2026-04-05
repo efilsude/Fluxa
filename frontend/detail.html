@@ -463,7 +463,7 @@
     // --- API BAĞLANTI KODU BURADAN BAŞLIYOR ---
     const urlParams = new URLSearchParams(window.location.search);
     const machineId = urlParams.get('id') || 'PR-A101'; // URL'de id yoksa varsayılan PR-A101
-    const API_BASE = "http://127.0.0.1:8000/api/machines/" + machineId;
+    const API_BASE = "https://fluxa-70yr.onrender.com/api/machines/" + machineId;
 
     async function loadDetailData() {
         try {

@@ -193,7 +193,7 @@
     async function updateLiveStats() {
         try {
             // Backend'deki gerçek AI istatistiklerine istek atıyoruz
-            const response = await fetch('http://127.0.0.1:8000/api/stats');
+            const response = await fetch('https://fluxa-70yr.onrender.com/api/stats');
             const data = await response.json();
             
             // Verileri HTML'deki ID'lere yerleştiriyoruz
